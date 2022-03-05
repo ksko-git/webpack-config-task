@@ -1,7 +1,8 @@
 import { Container } from 'react-bootstrap'
+import { TsxTitle } from './example';
 
 export const App = () => (
   <Container>
-      <h1>Hello World</h1>
+      <TsxTitle color={'green'} />
   </Container>
 )

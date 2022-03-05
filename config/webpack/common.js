@@ -1,4 +1,5 @@
-const paths = require('../paths');
+const paths = require('../paths')
+
 const webpack = require('webpack');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -39,7 +40,7 @@ module.exports = {
     alias: {
       '@': `${paths.src}/modules`
     },
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
+    extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json']
   },
   experiments: {
     topLevelAwait: true,
@@ -47,7 +48,7 @@ module.exports = {
   },
   module: {
     rules: [
-      // JS, React
+      // JavaScript, React
       {
         test: /\.m?jsx?$/i,
         exclude: /node_modules/,
@@ -71,10 +72,12 @@ module.exports = {
           'sass-loader'
         ]
       },
+      // MD
       {
         test: /\.md$/i,
         use: ['html-loader', 'markdown-loader']
       },
+      // static files
       {
         test: /\.(jpe?g|png|gif|svg|eot|ttf|woff2?)$/i,
         type: 'asset'
@@ -83,6 +86,7 @@ module.exports = {
   },
   plugins: [
     new webpack.ProgressPlugin(),
+
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -90,16 +94,25 @@ module.exports = {
         }
       ]
     }),
+
     new HtmlWebpackPlugin({
       template: `${paths.public}/index.html`,
       filename: 'index.html',
       templateParameters: {
-        title: 'Ahoy, Webpack!'
+        title: 'Ahoy, Webpack!',
+        analytics: 'analytics',
+        author: 'author',
+        publishedDate: 'publishedDate',
+        description: 'description',
+        keywords: 'webpack, react, javascript, typescript',
+        url: 'https://example.com'
       }
     }),
+
     new webpack.ProvidePlugin({
       React: 'react'
     }),
+
     new DotenvWebpack({
       path: './config/.env'
     })
