@@ -1,2 +1,5 @@
-# webpack-config-task
-Config of webpack + typescript + saas
+# Сборка
+```
+npm i
+npm start
+```
